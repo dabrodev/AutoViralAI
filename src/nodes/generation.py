@@ -33,15 +33,32 @@ async def generate_post_variants(
             "errors": ["generate_post_variants: No patterns available"],
         }
 
-    niche_config, strategy, recent_posts = await asyncio.gather(
+    niche_config, strategy, recent_posts, all_performances = await asyncio.gather(
         kb.get_niche_config(),
         kb.get_strategy(),
         kb.get_recent_posts(limit=10),
+        kb.get_all_pattern_performances(),
     )
     niche = niche_config or AccountNiche()
 
+    proven_patterns = sorted(
+        [p for p in all_performances if p.times_used > 0],
+        key=lambda p: p.effectiveness_score,
+        reverse=True,
+    )
+
+    proven_text = ""
+    if proven_patterns:
+        proven_text = "\n\n".join(
+            f"Pattern: {p.pattern_name} [PROVEN — {p.times_used} uses, "
+            f"{p.avg_engagement_rate:.2%} avg ER, "
+            f"effectiveness {p.effectiveness_score:.1f}/10]\n"
+            f"(Use this pattern name exactly when generating a variant with it)"
+            for p in proven_patterns[:5]
+        )
+
     patterns_text = "\n\n".join(
-        f"Pattern: {p.get('name', 'unnamed')}\n"
+        f"Pattern: {p.get('name', 'unnamed')} [NEW]\n"
         f"Description: {p.get('description', '')}\n"
         f"Structure: {p.get('structure', '')}\n"
         f"Hook type: {p.get('hook_type', '')}"
@@ -78,7 +95,8 @@ async def generate_post_variants(
                         voice_tone=niche.voice.tone,
                         voice_persona=niche.voice.persona,
                         style_notes="\n".join(niche.voice.style_notes),
-                        patterns=patterns_text,
+                        proven_patterns=proven_text or "No proven patterns yet — all exploration.",
+                        new_patterns=patterns_text,
                         pillars=pillars_text,
                         avoid_topics=avoid_text,
                         recent_posts=recent_text,

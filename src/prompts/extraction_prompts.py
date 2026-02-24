@@ -28,6 +28,15 @@ For each pattern, provide:
 6. Which content pillars it's best suited for
 7. How many of the analyzed posts use this pattern
 
+CRITICAL — Pattern naming rules:
+- Look at the "Known Pattern Performance" list above FIRST.
+- If a pattern you found is similar to an EXISTING pattern, you MUST reuse the \
+exact same name (e.g., if "first_person_investigation" exists and you see a similar \
+investigative-style pattern, use "first_person_investigation" — do NOT invent \
+"personal_investigation_story" or any variation).
+- Only create a NEW name if the pattern is genuinely different from all existing ones.
+- This is essential for the learning system to accumulate data on patterns over time.
+
 Focus on patterns that are:
 - Replicable (can be used for different topics)
 - Proven (seen in multiple successful posts)

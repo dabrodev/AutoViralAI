@@ -21,9 +21,18 @@ Tone: {voice_tone}
 Persona: {voice_persona}
 Style: {style_notes}
 
-## Available Content Patterns (use one per variant)
+## Top Performing Patterns (PRIORITIZE THESE)
 
-{patterns}
+These patterns have REAL engagement data. At least 3 out of 5 variants MUST use \
+a proven pattern from this list. Use the pattern name EXACTLY as shown.
+
+{proven_patterns}
+
+## New Patterns from Research (use for remaining variants)
+
+These are freshly discovered patterns — use them for exploration (up to 2 variants).
+
+{new_patterns}
 
 ## Content Pillars (distribute across these)
 
@@ -44,10 +53,14 @@ Style: {style_notes}
 ## Instructions
 
 For each variant:
-1. Pick a different pattern from the list above
+1. Pick a different pattern — prioritize PROVEN patterns first
 2. Pick a content pillar (try to cover multiple pillars)
 3. Write a complete Threads post (max 500 chars)
 4. Explain your reasoning for why this should perform well
+
+CRITICAL: If proven patterns are available, at least 3 variants must use them. \
+Use the exact proven pattern name in the pattern_used field. \
+The remaining 2 variants can explore new patterns from research.
 
 Make each variant genuinely different in tone, structure, and topic.
 Push boundaries - the best performing posts are slightly controversial or surprising."""
