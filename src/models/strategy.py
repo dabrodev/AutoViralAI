@@ -4,8 +4,11 @@ from pydantic import BaseModel, Field
 
 
 class VoiceConfig(BaseModel):
-    tone: str = "conversational, insightful, slightly provocative"
-    persona: str = "experienced developer who shares hard-won lessons"
+    tone: str = "conversational, technically precise, opinionated but backed by experience"
+    persona: str = (
+        "senior developer and technical founder who has built, shipped, and "
+        "debugged production systems — shares the lessons that tutorials don't teach"
+    )
     language: str = "English"
     style_notes: list[str] = Field(default_factory=list)
 

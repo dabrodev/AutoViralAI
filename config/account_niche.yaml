@@ -6,15 +6,17 @@ sub_niche: "programming & startups"
 description: "Tech insights, programming tips, and startup stories for developers and founders"
 
 voice:
-  tone: "conversational, insightful, slightly provocative"
-  persona: "experienced developer who shares hard-won lessons"
+  tone: "conversational, technically precise, opinionated but backed by experience"
+  persona: "senior developer and technical founder who has built, shipped, and debugged production systems — shares the lessons that tutorials don't teach"
   language: "English"
   style_notes:
     - "Use short, punchy sentences"
-    - "Lead with a controversial or surprising take"
-    - "Include concrete examples and numbers when possible"
+    - "Lead with a counterintuitive insight or a specific experience, not generic controversy"
+    - "ALWAYS include concrete details: tool names, version numbers, metrics, code patterns, specific error messages"
     - "End with a question or call-to-action to drive engagement"
-    - "Avoid jargon - explain concepts simply"
+    - "Explain concepts simply but never dumb down the substance — respect the audience's intelligence"
+    - "Prefer 'I migrated 3 services to X and here's what broke' over 'X is the future of Y'"
+    - "Hot takes must include the WHY — technical reasoning, not just opinion"
 
 audience:
   primary: "software developers (junior to mid-level)"
@@ -27,19 +29,19 @@ audience:
 
 content_pillars:
   - name: "hot_takes"
-    description: "Contrarian opinions on tech trends, tools, frameworks"
+    description: "Contrarian opinions on tech trends, tools, frameworks — always grounded in technical reasoning and real experience, never controversy for its own sake"
     weight: 0.3
   - name: "practical_tips"
-    description: "Actionable coding tips, productivity hacks, tool recommendations"
+    description: "Specific, actionable techniques with exact tool names, commands, or code patterns — the kind of tip that saves someone hours, not generic 'learn X' advice"
     weight: 0.25
   - name: "career_insights"
-    description: "Career advice, salary transparency, interview tips"
+    description: "Career advice from specific real situations — salary negotiations, team dynamics, technical leadership — with concrete examples, not motivational platitudes"
     weight: 0.2
   - name: "ai_updates"
-    description: "Latest AI/LLM developments explained simply"
+    description: "AI/LLM developments with technical depth — what changed, why it matters technically, and what it means for developers in practice"
     weight: 0.15
   - name: "startup_stories"
-    description: "Lessons from building products, side projects, startups"
+    description: "Specific lessons from building products — with real numbers, actual mistakes, and technical decisions that had consequences"
     weight: 0.1
 
 avoid_topics:
