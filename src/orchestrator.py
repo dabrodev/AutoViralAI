@@ -134,7 +134,15 @@ class PipelineOrchestrator:
                 return result
 
             values = (state.values if state else None) or (result or {})
-            if not values.get("selected_post"):
+            if values.get("goal_reached"):
+                logger.info(
+                    "Creation cycle #%d completed early: "
+                    "follower goal already reached (%d/%d followers)",
+                    cycle,
+                    values.get("current_follower_count", 0),
+                    values.get("target_follower_count", 0),
+                )
+            elif not values.get("selected_post"):
                 errors = values.get("errors", [])
                 await self._send_creation_failure_telegram(cycle, errors)
 
