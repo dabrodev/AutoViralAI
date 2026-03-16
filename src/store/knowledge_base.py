@@ -150,6 +150,15 @@ class KnowledgeBase:
         posts = await self.get_recent_posts(limit=limit)
         return [p.content for p in posts]
 
+    async def get_recent_pattern_counts(self, limit: int = 30) -> dict[str, int]:
+        """Count how many times each pattern was used in recent posts."""
+        posts = await self.get_recent_posts(limit=limit)
+        counts: dict[str, int] = {}
+        for p in posts:
+            if p.pattern_used:
+                counts[p.pattern_used] = counts.get(p.pattern_used, 0) + 1
+        return counts
+
     async def cleanup_old_metrics(self, keep_last: int = 200) -> int:
         try:
             items = await self.store.asearch(ns_metrics_history(self.account_id), limit=1000)

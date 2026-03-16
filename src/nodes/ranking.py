@@ -29,6 +29,11 @@ class AIScoreResult(BaseModel):
     scores: list[PostScore] = Field(description="Score for each variant")
 
 
+SATURATION_THRESHOLD = 5
+SATURATION_PENALTY_PER_USE = 0.5
+MAX_SATURATION_PENALTY = 4.0
+
+
 async def rank_and_select(
     state: CreationPipelineState,
     *,
@@ -44,9 +49,10 @@ async def rank_and_select(
             "errors": ["rank_and_select: No variants to rank"],
         }
 
-    niche_config, recent_contents = await asyncio.gather(
+    niche_config, recent_contents, pattern_counts = await asyncio.gather(
         kb.get_niche_config(),
         kb.get_recent_post_contents(limit=20),
+        kb.get_recent_pattern_counts(limit=30),
     )
     audience_desc = ""
     if niche_config:
@@ -114,6 +120,17 @@ async def rank_and_select(
             novelty = DEFAULT_NOVELTY_SCORE
 
         composite = RankedPost.compute_composite(ai_score, history_score, novelty)
+
+        pattern_name = v.get("pattern_used", "")
+        usage_count = pattern_counts.get(pattern_name, 0)
+        if usage_count >= SATURATION_THRESHOLD:
+            excess = usage_count - SATURATION_THRESHOLD
+            penalty = min(excess * SATURATION_PENALTY_PER_USE, MAX_SATURATION_PENALTY)
+            composite = max(0.0, composite - penalty)
+            reasoning += (
+                f" [SATURATION PENALTY: -{penalty:.1f} — "
+                f"pattern used {usage_count}x in last 30 posts]"
+            )
 
         ranked.append(
             RankedPost(

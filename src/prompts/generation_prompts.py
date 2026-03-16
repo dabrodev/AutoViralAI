@@ -66,6 +66,22 @@ These are freshly discovered patterns — use them for exploration (up to 2 vari
 
 {strategy_learnings}
 
+## OVERSATURATED PATTERNS (DO NOT USE)
+
+These patterns have been used too many times recently. Your audience is tired of them. \
+Do NOT generate variants using these patterns — pick different ones instead.
+
+{saturated_patterns}
+
+## OVERUSED NUMBERS (BANNED)
+
+These specific numbers appear repeatedly across recent posts, making content look \
+AI-generated. DO NOT use any of these numbers in your variants: {overused_numbers}
+
+Use DIFFERENT, realistic numbers every time. Vary orders of magnitude. \
+If you need a dollar amount, don't always use thousands — try hundreds or millions. \
+If you need a count, don't reuse the same figures.
+
 ## Instructions
 
 For each variant:
@@ -78,8 +94,10 @@ CRITICAL: If proven patterns are available, at least 3 variants must use them. \
 Use the exact proven pattern name in the pattern_used field. \
 The remaining 2 variants can explore new patterns from research.
 
-Make each variant genuinely different in tone, structure, and topic.
-Push boundaries — the best performing posts are slightly controversial or surprising.
+Make each variant genuinely different in tone, structure, AND FORMAT. \
+Vary sentence length, post structure, and opening style. \
+Do NOT start every post with "Found a..." or "I spent N hours/weeks...". \
+The best performing posts are slightly controversial or surprising.
 
 ## Quality Self-Check (apply to EVERY variant before submitting)
 
@@ -88,4 +106,6 @@ Reject and rewrite any variant that fails these checks:
 - "Does this contain a concrete detail (tool name, number, code pattern, error)?" → If no, add one.
 - "Is the core claim backed by reasoning or experience?" → If no, ground it.
 - "Would an experienced developer learn something or nod in recognition?" → If neither, rewrite.
-- "Does this sound like generic social media advice?" → If yes, make it specific to tech."""
+- "Does this sound like generic social media advice?" → If yes, make it specific to tech.
+- "Does this follow the exact same structure as another variant?" → If yes, restructure it.
+- "Am I using any of the banned overused numbers?" → If yes, pick different numbers."""

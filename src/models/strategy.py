@@ -1,3 +1,4 @@
+from datetime import UTC, datetime
 from typing import ClassVar
 
 from pydantic import BaseModel, Field
@@ -60,6 +61,7 @@ class PatternPerformance(BaseModel):
     ENGAGEMENT_WEIGHT: ClassVar[float] = 0.6
     FOLLOWER_WEIGHT: ClassVar[float] = 0.4
     MAX_SCORE: ClassVar[float] = 10.0
+    RECENCY_HALF_LIFE_DAYS: ClassVar[float] = 14.0
 
     @property
     def effectiveness_score(self) -> float:
@@ -67,10 +69,27 @@ class PatternPerformance(BaseModel):
             return self.EXPLORATION_BONUS
         engagement_component = min(self.avg_engagement_rate * 100, self.MAX_SCORE)
         follower_component = min(max(self.avg_follower_delta, 0) * 2, self.MAX_SCORE)
-        return (
+        raw_score = (
             self.ENGAGEMENT_WEIGHT * engagement_component
             + self.FOLLOWER_WEIGHT * follower_component
         )
+        decay = self._recency_factor
+        return decay * raw_score + (1 - decay) * self.EXPLORATION_BONUS
+
+    @property
+    def _recency_factor(self) -> float:
+        """Decay score toward EXPLORATION_BONUS as data gets stale."""
+        if not self.last_used_at:
+            return 1.0
+        try:
+            last = datetime.fromisoformat(self.last_used_at)
+            if last.tzinfo is None:
+                last = last.replace(tzinfo=UTC)
+            days_ago = (datetime.now(UTC) - last).total_seconds() / 86400
+        except (ValueError, TypeError):
+            return 1.0
+        decay = 0.5 ** (days_ago / self.RECENCY_HALF_LIFE_DAYS)
+        return max(decay, 0.3)
 
 
 class ContentStrategy(BaseModel):

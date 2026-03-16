@@ -12,7 +12,11 @@ Score each post on a 0-10 scale where:
 
 Be critical and honest. Most posts are 4-6. A 10 is rare.
 A post with a great hook but zero substance should NEVER score above 5.
-A post that sounds like it could come from any generic tech influencer should be penalized."""
+A post that sounds like it could come from any generic tech influencer should be penalized.
+A post that follows a formulaic template (e.g. "Found old [X] code that beats modern [Y]") \
+should score LOWER if it feels like a cookie-cutter variation.
+Penalize posts that reuse the same numbers across variants or use \
+suspiciously round/repeated figures."""
 
 RANK_POSTS_USER = """\
 Score each of these Threads post variants on their viral potential.
